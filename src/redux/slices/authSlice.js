@@ -5,7 +5,7 @@ import {backendAPI} from "../../constant"
 
 const initialState = {
     loggedInStatus  : JSON.parse(localStorage.getItem("loggedInStatus") || "false") ,
-    role            : JSON.parse(localStorage.getItem("Role")),
+    role            : localStorage.getItem("role"),
     token           : localStorage.getItem("token") || '',
     data            : JSON.parse(localStorage.getItem("data")  || "{}"),
     ban             : JSON.parse(localStorage.getItem("ban") || "false")
