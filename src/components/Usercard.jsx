@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import set from "../assets/manage.png"
 import {
     Menu,
@@ -8,21 +8,26 @@ import {
     MenuItem,
     Checkbox,
   } from "@material-tailwind/react";
+
 import { useState } from "react";
+import { addModeratorAPI, getAllUsersAPI, removeModeratorAPI } from "../redux/slices/userSlice";
 
 export const Usercard = ({users}) =>{
 
     const currentUser = useSelector((state)=>state.auth?.data.loggedInUserDetails)
+    const dispatch = useDispatch()
 
     const [checked, setChecked] = useState(false);
 
-    const handleCheckboxChange = (event) => {
+    const handleCheckboxChange = async (event) => {
         const isChecked = event.target.checked;
         setChecked(isChecked);
         if (isChecked) {
-            console.log("Mod added")
+            const res = await dispatch(addModeratorAPI(users?._id))
+            await dispatch(getAllUsersAPI())
         } else {
-            console.log("Mod removed")
+            const res = await dispatch(removeModeratorAPI(users?._id))
+            await dispatch(getAllUsersAPI())
         }
     };
 
@@ -52,7 +57,10 @@ export const Usercard = ({users}) =>{
                 currentUser?.role == "ADMIN" ? 
                 <div className="flex justify-center items-center">
 
-                    <Menu dismiss={{ itemPress: false,}}>
+                    {
+                        users?.role  == 'ADMIN' ? <></>
+                        :
+                        <Menu dismiss={{ itemPress: false,}}>
                         <MenuHandler>
                             <IconButton variant="text">
                                 <img
@@ -65,13 +73,16 @@ export const Usercard = ({users}) =>{
 
                         <MenuList>
 
-                            <MenuItem className="p-0">
+                                <MenuItem className="p-0">
                                 <label
                                     htmlFor="item-1"
                                     className="flex cursor-pointer items-center gap-2 p-2"
                                 >
                                     <Checkbox
-                                    checked={checked}
+                                    checked={
+                                        users?.role == "MODERATOR" ? true : false
+                                    }
+                                    
                                     onChange={handleCheckboxChange}
                                     ripple={true}
                                     id="item-1"
@@ -79,21 +90,17 @@ export const Usercard = ({users}) =>{
                                     className="hover:before:content-none"
                                     />
                                     Moderator
-                                </label>
-                            </MenuItem>
-
-                            <hr className="my-3" />
-                            <MenuItem
-                             className="bg-red-400 text-white hover:bg-red-500"
-                            >
-                             {
-                                users?.ban == false ? <div>Ban</div> : <div>Unban</div>
-                              }
-                            </MenuItem>
-                            
+                                 </label>
+                                </MenuItem>
+                                <hr className="my-3" />
+                                <MenuItem className="bg-red-400 text-white hover:bg-red-500" >
+                                    {
+                                        users?.ban == false ? <div>Ban</div> : <div>Unban</div>
+                                    }
+                                </MenuItem>                            
                         </MenuList>
                         </Menu>
-
+        }
                 </div>
                 :
                 <></>

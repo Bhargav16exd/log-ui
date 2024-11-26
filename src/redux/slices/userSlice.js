@@ -28,6 +28,56 @@ export const getAllUsersAPI = createAsyncThunk(
     }
 )
 
+export const addModeratorAPI = createAsyncThunk(
+    'user/addModerator',
+    async function(id){
+        const data = {
+            id:id
+        }
+        try {
+            const response = axios.post(`${backendAPI}/api/v1/user/addMod`,data,{
+                headers: {
+                     "Authorization": `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+
+            toast.promise(response,{
+                loading:""
+            })
+
+            return (await response).data
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data.message)
+        }
+    }
+)
+
+export const removeModeratorAPI = createAsyncThunk(
+    'user/removeModerator',
+    async function(id){
+        const data = {
+            id:id
+        }
+        try {
+            const response = axios.post(`${backendAPI}/api/v1/user/removeMod` ,data , {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+               }
+            })
+
+            toast.promise(response,{
+                loading:""
+            })
+
+            return (await response).data
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data.message)
+        }
+    }
+)
+
 const userSlice = createSlice({
     name:"user",
     initialState,
