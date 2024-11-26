@@ -1,1 +1,1 @@
-export const backendAPI = 'http://localhost:9911'
+export const backendAPI = 'https://api.noinertia.in'
