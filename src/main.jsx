@@ -10,8 +10,8 @@ import { Toaster } from 'sonner'
 ReactDOM.createRoot(document.getElementById('root')).render(
 
   <Provider store={store}>
-    <BrowserRouter>
-     <Toaster position='top-center'/>
+     <BrowserRouter>
+      <Toaster position='top-center'/>
       <App />
     </BrowserRouter>
   </Provider>

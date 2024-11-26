@@ -6,6 +6,9 @@ export const Postcard = ({post}) => {
     const currentUser = useSelector((state)=>state.auth?.data.loggedInUserDetails)
     const dispatch = useDispatch()
 
+    console.log(post)
+    console.log(currentUser)
+
     async function handleDelete(){
 
         await dispatch(handleDeletePostAPI(post._id))
@@ -29,7 +32,7 @@ export const Postcard = ({post}) => {
                 </div>
 
                 {
-                    currentUser?.role == "ADMIN"  || currentUser?.role == "MODERATOR" ? 
+                    currentUser?.role == "ADMIN"  || currentUser?.role == "MODERATOR" || post.user == currentUser._id? 
                     <div className="w-1/2 flex justify-end  items-end">
                         <button className="bg-red-500 text-white py-2 px-4 rounded-lg" onClick={handleDelete}>
                             Delete
