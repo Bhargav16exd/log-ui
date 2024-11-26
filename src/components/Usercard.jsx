@@ -14,6 +14,7 @@ import { addModeratorAPI, getAllUsersAPI, handleBan, handleUnban, removeModerato
 
 export const Usercard = ({users}) =>{
 
+    // get the current user from the redux store
     const currentUser = useSelector((state)=>state.auth?.data.loggedInUserDetails)
     const dispatch = useDispatch()
 
@@ -23,9 +24,13 @@ export const Usercard = ({users}) =>{
         const isChecked = event.target.checked;
         setChecked(isChecked);
         if (isChecked) {
+
+            // if the user is not a moderator, add the user as a moderator
             const res = await dispatch(addModeratorAPI(users?._id))
             await dispatch(getAllUsersAPI())
         } else {
+
+            // if the user is a moderator, remove the user as a moderator
             const res = await dispatch(removeModeratorAPI(users?._id))
             await dispatch(getAllUsersAPI())
         }
@@ -34,9 +39,13 @@ export const Usercard = ({users}) =>{
     async function handleBanUnban(){
 
         if(users?.ban == false){
+
+            // if the user is not banned, ban the user
             const res = await dispatch(handleBan(users?._id))
             await dispatch(getAllUsersAPI())
         }else if (users?.ban == true){
+
+            // if the user is banned, unban the user
             const res = await dispatch(handleUnban(users?._id))
             await dispatch(getAllUsersAPI())
         }
@@ -86,24 +95,19 @@ export const Usercard = ({users}) =>{
                         <MenuList>
 
                                 <MenuItem className="p-0">
-                                <label
-                                    htmlFor="item-1"
-                                    className="flex cursor-pointer items-center gap-2 p-2"
-                                >
-                                    <Checkbox
-                                    checked={
-                                        users?.role == "MODERATOR" ? true : false
-                                    }
-                                    
-                                    onChange={handleCheckboxChange}
-                                    ripple={true}
-                                    id="item-1"
-                                    containerProps={{ className: "p-0" }}
-                                    className="hover:before:content-none"
+
+                                  <label   htmlFor="item-1" className="flex cursor-pointer items-center gap-2 p-2" >
+                                      <Checkbox checked={ users?.role == "MODERATOR" ? true : false}
+                                        onChange={handleCheckboxChange}
+                                        ripple={true}
+                                        id="item-1"
+                                        containerProps={{ className: "p-0" }}
+                                        className="hover:before:content-none"
                                     />
                                     Moderator
                                  </label>
                                 </MenuItem>
+                                
                                 <hr className="my-3" />
 
                                 <MenuItem className="bg-red-400 text-white hover:bg-red-500" onClick={handleBanUnban}>

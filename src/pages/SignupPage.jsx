@@ -36,9 +36,13 @@ export const Signup = () => {
         if(signupData.password != signupData.confirmPassword){
             toast.error('Password doesnt match')
             return
-        }        
+        }      
+        
+        // Calls handleSignupAPI to signup
         const res = await dispatch(handleSignupAPI(signupData))
 
+
+        // Redirect to login page if signup is successful
         if(res?.payload?.statusCode == 201){
             navigate('/login')
         }

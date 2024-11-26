@@ -8,6 +8,7 @@ const initialState = {
 }
 
 
+// Calls createBlog API to create a new post
 export const handleNewPostAPI = createAsyncThunk(
     'post/handleNewPostAPI',
      async function(data){
@@ -33,6 +34,7 @@ export const handleNewPostAPI = createAsyncThunk(
 
 )
 
+// Calls getBlog API to update a post
 export const handleDeletePostAPI = createAsyncThunk(
     'post/handleDeletePostAPI',
     async function(id){
@@ -60,6 +62,8 @@ export const handleDeletePostAPI = createAsyncThunk(
     }
 )
 
+
+// Calls getBlog API to get all posts
 export const getAllPostsAPI = createAsyncThunk(
     'post/getAllPostsAPI',
     async function(){

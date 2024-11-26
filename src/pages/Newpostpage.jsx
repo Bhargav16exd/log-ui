@@ -25,7 +25,7 @@ export const Newpostpage = () => {
     }
 
     async function handleSubmit(e) {
-        
+
             e.preventDefault()
         
             if(!newPostData.title || !newPostData.content ){
@@ -33,6 +33,7 @@ export const Newpostpage = () => {
                 return
             }
     
+            // Calls handleNewPostAPI to create a new post
             const res = await dispatch(handleNewPostAPI(newPostData))
     
             if(res?.payload?.statusCode == 200){
@@ -47,6 +48,7 @@ export const Newpostpage = () => {
        <Homelayout>
          <div className="h-full px-10 ">
 
+
             <div className="w-full py-4 px-4 flex">
                 <div className="w-full flex justify-end ">
                     <button className="border py-2 px-4 rounded-md hover:bg-black hover:text-white transition-colors ease-linear delay-150">
@@ -55,25 +57,33 @@ export const Newpostpage = () => {
                 </div>
             </div>
 
+           
             <div className="border-gray-400 my-4 rounded-lg w-full">
     
                 <form className="h-auto  flex justify-center items-center flex-col bg-[#ffffff] border rounded-lg py-4 px-6">
-
+                    
+                    {/* Create a new log post div */}
                     <div className="w-full flex justify-center items-start flex-col my-4">
                         <h1 className=" font-semibold text-3xl my-2">Create a new log post</h1>
                     </div>
+
+                    {/* Title input */}
                     <div className="w-full flex justify-center items-start flex-col my-2">
                         <label className="my-2 font-medium">
                             Title
                         </label>
                         <input type="text" autoComplete="new-title" placeholder="Enter your log post title" className="my-2 outline-none border rounded-md w-full py-2 px-2" name="title" onChange={handleChange} value={newPostData.title} />
                     </div>
+
+                    {/* Content input */}   
                     <div className="w-full flex justify-center items-start flex-col my-2">
                         <label className="my-2 font-medium">
                             Content
                         </label>
                         <textarea autoComplete="new-content" placeholder="Write your blog post content here" className="my-2 outline-none border rounded-md w-full py-2 px-2 min-h-[25vh]" name="content" onChange={handleChange} value={newPostData.content} />
                     </div>
+
+                    {/* Create Post button */}
                     <div className="my-1 bg-black text-white text-center border rounded-md w-full py-2 px-2  cursor-pointer " onClick={handleSubmit} >
                         Create Post
                     </div>

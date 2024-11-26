@@ -3,6 +3,8 @@ import axios from "axios"
 import { toast } from "sonner";
 import {backendAPI} from "../../constant"
 
+
+//Save the user data in local storage
 const initialState = {
     loggedInStatus  : JSON.parse(localStorage.getItem("loggedInStatus") || "false") ,
     role            : localStorage.getItem("role"),
@@ -11,6 +13,7 @@ const initialState = {
     ban             : JSON.parse(localStorage.getItem("ban") || "false")
 }
 
+//Function calls Signup API
 export const handleSignupAPI = createAsyncThunk(
     'auth/signup',
     async function(data){
@@ -31,6 +34,7 @@ export const handleSignupAPI = createAsyncThunk(
     }
 )
 
+//Function calls Signin API
 export const handleSigninAPI = createAsyncThunk(
     'auth/login',
     async function(data){
@@ -51,6 +55,7 @@ export const handleSigninAPI = createAsyncThunk(
     }
 )
 
+//Function calls Logout API
 export const handleLogoutAPI = createAsyncThunk(
     'auth/logout',
     async function(){

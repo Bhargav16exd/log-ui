@@ -6,9 +6,6 @@ export const Postcard = ({post}) => {
     const currentUser = useSelector((state)=>state.auth?.data.loggedInUserDetails)
     const dispatch = useDispatch()
 
-    console.log(post)
-    console.log(currentUser)
-
     async function handleDelete(){
 
         await dispatch(handleDeletePostAPI(post._id))

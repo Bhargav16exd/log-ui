@@ -8,7 +8,7 @@ const initialState = {
     logs:[]
 }
 
-
+// Calls getAllUsers API to get all users
 export const getAllUsersAPI = createAsyncThunk(
     'user/getAllUsers',
     async function(){
@@ -29,6 +29,7 @@ export const getAllUsersAPI = createAsyncThunk(
     }
 )
 
+// Calls addModerator API to add a moderator
 export const addModeratorAPI = createAsyncThunk(
     'user/addModerator',
     async function(id){
@@ -54,6 +55,7 @@ export const addModeratorAPI = createAsyncThunk(
     }
 )
 
+// Calls removeModerator API to remove a moderator
 export const removeModeratorAPI = createAsyncThunk(
     'user/removeModerator',
     async function(id){
@@ -79,6 +81,7 @@ export const removeModeratorAPI = createAsyncThunk(
     }
 )
 
+// Calls getLogs API to get all logs
 export const getLogsAPI = createAsyncThunk(
     'user/getLogs',
     async function(){
@@ -102,6 +105,7 @@ export const getLogsAPI = createAsyncThunk(
 
 )
 
+// Calls handleBan API to ban a user
 export const handleBan = createAsyncThunk(
     'user/handleBan',
     async function(id){
@@ -127,6 +131,7 @@ export const handleBan = createAsyncThunk(
     }
 )
 
+// Calls handleUnban API to unban a user
 export const handleUnban = createAsyncThunk(
     'user/handleUnban',
     async function(id){
