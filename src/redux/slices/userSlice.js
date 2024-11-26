@@ -102,6 +102,56 @@ export const getLogsAPI = createAsyncThunk(
 
 )
 
+export const handleBan = createAsyncThunk(
+    'user/handleBan',
+    async function(id){
+        const data = {
+            id:id
+        }
+        try {
+            const response = axios.post(`${backendAPI}/api/v1/user/ban` ,data , {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+               }
+            })
+
+            toast.promise(response,{
+                loading:""
+            })
+
+            return (await response).data
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data.message)
+        }
+    }
+)
+
+export const handleUnban = createAsyncThunk(
+    'user/handleUnban',
+    async function(id){
+        const data = {
+            id:id
+        }
+        try {
+            const response = axios.post(`${backendAPI}/api/v1/user/unban` ,data , {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+               }
+            })
+
+            toast.promise(response,{
+                loading:""
+            })
+
+            return (await response).data
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data.message)
+        }
+    }
+)
+
 const userSlice = createSlice({
     name:"user",
     initialState,

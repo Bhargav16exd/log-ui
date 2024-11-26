@@ -35,7 +35,14 @@ export const Sigin = () => {
         const res = await dispatch(handleSigninAPI(signinData))
 
         if(res?.payload?.statusCode == 200){
-            navigate('/home')
+
+            if(res?.payload?.data?.loggedInUserDetails?.ban == true){
+                navigate('/ban')
+            }
+            else{
+                navigate('/home')
+            }
+            
         }
         else{
             return

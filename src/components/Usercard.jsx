@@ -10,7 +10,7 @@ import {
   } from "@material-tailwind/react";
 
 import { useState } from "react";
-import { addModeratorAPI, getAllUsersAPI, removeModeratorAPI } from "../redux/slices/userSlice";
+import { addModeratorAPI, getAllUsersAPI, handleBan, handleUnban, removeModeratorAPI } from "../redux/slices/userSlice";
 
 export const Usercard = ({users}) =>{
 
@@ -30,6 +30,18 @@ export const Usercard = ({users}) =>{
             await dispatch(getAllUsersAPI())
         }
     };
+
+    async function handleBanUnban(){
+
+        if(users?.ban == false){
+            const res = await dispatch(handleBan(users?._id))
+            await dispatch(getAllUsersAPI())
+        }else if (users?.ban == true){
+            const res = await dispatch(handleUnban(users?._id))
+            await dispatch(getAllUsersAPI())
+        }
+
+    }
 
 
     return(
@@ -93,7 +105,8 @@ export const Usercard = ({users}) =>{
                                  </label>
                                 </MenuItem>
                                 <hr className="my-3" />
-                                <MenuItem className="bg-red-400 text-white hover:bg-red-500" >
+
+                                <MenuItem className="bg-red-400 text-white hover:bg-red-500" onClick={handleBanUnban}>
                                     {
                                         users?.ban == false ? <div>Ban</div> : <div>Unban</div>
                                     }
