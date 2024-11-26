@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllUsersAPI } from "../redux/slices/userSlice"
-import { Usercard } from "../components/usercard"
+import { Usercard } from "../components/Usercard"
 import set from "../assets/manage.png"
 import {Link} from "react-router-dom"
 import {handleLogoutAPI} from "../redux/slices/authSlice"
