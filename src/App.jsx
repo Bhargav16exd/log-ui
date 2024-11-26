@@ -3,6 +3,7 @@ import { Signup } from './pages/SignupPage'
 import { Sigin } from './pages/Signinpage'
 import {Home} from "./pages/Homepage"
 import RequireAuth from "./utils/RequireAuth"
+import { Newpostpage } from './pages/Newpostpage'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route element={<RequireAuth/> } >
         
           <Route path='/home'  element={<Home/>}></Route>
+          <Route path='/newpost' element={<Newpostpage/>}></Route>
         
         </Route>
 
