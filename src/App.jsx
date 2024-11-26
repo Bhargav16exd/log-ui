@@ -4,6 +4,7 @@ import { Sigin } from './pages/Signinpage'
 import {Home} from "./pages/Homepage"
 import RequireAuth from "./utils/RequireAuth"
 import { Newpostpage } from './pages/Newpostpage'
+import { Adminpage } from './pages/Adminpage'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         
           <Route path='/home'  element={<Home/>}></Route>
           <Route path='/newpost' element={<Newpostpage/>}></Route>
+          <Route path='/admin' element={<Adminpage/>}></Route>
         
         </Route>
 

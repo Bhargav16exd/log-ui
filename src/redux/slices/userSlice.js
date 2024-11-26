@@ -4,7 +4,8 @@ import {toast} from "sonner"
 import { backendAPI } from "../../constant"
 
 const initialState = {
-    user:[]
+    user:[],
+    logs:[]
 }
 
 
@@ -78,6 +79,29 @@ export const removeModeratorAPI = createAsyncThunk(
     }
 )
 
+export const getLogsAPI = createAsyncThunk(
+    'user/getLogs',
+    async function(){
+        try {
+            const response = axios.get(`${backendAPI}/api/v1/user/logs` , {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+               }
+            })
+
+            toast.promise(response,{
+                loading:""
+            })
+
+            return (await response).data
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data.message)
+        }
+    }
+
+)
+
 const userSlice = createSlice({
     name:"user",
     initialState,
@@ -86,6 +110,9 @@ const userSlice = createSlice({
         builder
         .addCase(getAllUsersAPI.fulfilled,(state,action)=>{
             state.user = action.payload.data
+        })
+        .addCase(getLogsAPI.fulfilled,(state,action)=>{
+            state.logs = action.payload.data
         })
     }
 })

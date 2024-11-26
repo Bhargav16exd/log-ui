@@ -2,6 +2,8 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllUsersAPI } from "../redux/slices/userSlice"
 import { Usercard } from "../components/usercard"
+import set from "../assets/manage.png"
+import {Link} from "react-router-dom"
 
 export const Homelayout = ({children}) => {
 
@@ -30,6 +32,20 @@ export const Homelayout = ({children}) => {
         </div>
 
         <div className="h-full w-1/2 flex justify-end items-center px-10 font-semibold">
+
+            {
+                user?.role == "ADMIN" ? <Link to="/admin">
+                <div className="border py-2 px-4 rounded-md mx-4 flex justify-center items-center cursor-pointer">
+                    
+                    <div>Admin Dashboard</div>
+                    <img src={set} alt="Wrench Icon" className="h-4 w-4 ml-2"/>
+                    
+                </div></Link>
+                :
+                <></>
+
+            }
+            
 
             <div className="border py-2 px-4 rounded-md">
                 {user?.username}
