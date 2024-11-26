@@ -4,6 +4,14 @@ import { getAllUsersAPI } from "../redux/slices/userSlice"
 import { Usercard } from "../components/usercard"
 import set from "../assets/manage.png"
 import {Link} from "react-router-dom"
+import {handleLogoutAPI} from "../redux/slices/authSlice"
+import {
+    Menu,
+    MenuHandler,
+    MenuList,
+    MenuItem,
+    Button,
+  } from "@material-tailwind/react";
 
 export const Homelayout = ({children}) => {
 
@@ -14,6 +22,13 @@ export const Homelayout = ({children}) => {
 
     async function getUsers(){
         await dispatch(getAllUsersAPI())
+    }
+
+    async function handleLogout(){
+        try {
+            const res = await dispatch(handleLogoutAPI())
+        } catch (error) {
+        }
     }
 
     useEffect(()=>{
@@ -47,8 +62,16 @@ export const Homelayout = ({children}) => {
             }
             
 
-            <div className="border py-2 px-4 rounded-md">
-                {user?.username}
+            <div className=" py-2 px-4 ">
+            <Menu>
+                <MenuHandler>
+                    <Button>{user?.username}</Button>
+                </MenuHandler>
+                <MenuList>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </MenuList>
+                </Menu>
+                            
             </div>
 
         </div>

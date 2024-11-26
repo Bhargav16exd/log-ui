@@ -51,6 +51,29 @@ export const handleSigninAPI = createAsyncThunk(
     }
 )
 
+export const handleLogoutAPI = createAsyncThunk(
+    'auth/logout',
+    async function(){
+        try {
+            const response = axios.get(`${backendAPI}/api/v1/user/logout`,{
+                headers: {
+                     "Authorization": `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+
+            toast.promise(response,{
+                loading:"Logging out"
+            })
+
+            return (await response).data
+            
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data.message)
+        }
+    }
+)
+
 
 const authSlice = createSlice({
     name: 'auth',
@@ -70,6 +93,20 @@ const authSlice = createSlice({
             state.data           = action.payload?.data
             state.loggedInStatus = true
             state.token          = action.payload?.data?.token 
+            state.ban            = false
+        })
+        .addCase(handleLogoutAPI.fulfilled , (state,action)=>{
+
+            localStorage.removeItem("data")
+            localStorage.removeItem("role")
+            localStorage.removeItem("token")
+            localStorage.removeItem("loggedInStatus")
+            localStorage.removeItem("ban")
+
+            state.role           = null
+            state.data           = {}
+            state.loggedInStatus = false
+            state.token          = ''
             state.ban            = false
         })
     }
